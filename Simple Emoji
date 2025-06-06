@@ -10,4 +10,4 @@
 
 SELECT * FROM users WHERE username = '😀' OR 1=1;
 
-//By DaUfooo 2025
+// By DaUfooo 2025
