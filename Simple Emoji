@@ -9,3 +9,5 @@
 // SQL-Query
 
 SELECT * FROM users WHERE username = '😀' OR 1=1;
+
+//By DaUfooo 2025
