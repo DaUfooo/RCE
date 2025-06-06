@@ -1,0 +1,23 @@
+// Simple Pingtest
+
+$IP = Read-Host "Gib eine IP oder URL ein:"
+while($true)
+{
+ $Antwort = Test-Connection -ComputerName $IP -Count 1 -ErrorAction SilentlyContinue
+
+ 	if ( ($Antwort.ResponseTime -gt 100) -or (-not($Antwort)) )
+{
+		Write-Warning "Beep!"
+			[console]::beep(4000,1000)
+}
+
+else
+{
+	write-host "Antwort von" $Antwort.Address  "in" $Antwort.ResponseTime "ms."
+}
+
+	write-host "Warte 5 Sekunden und teste erneut..."
+		Start-Sleep -Seconds 5
+}
+
+// By DaUfooo 2025
