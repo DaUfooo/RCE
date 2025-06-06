@@ -1,0 +1,18 @@
+// #############IP-GENERATOR+SSH-CONNECT-TEST###################
+#!/bin/bash
+
+RANDOM=25
+	for i in {1…100}
+		do
+			STR=$(printf “%d.%d.%d.%d\n” “$((RANDOM % 256))” “$((RANDOM % 256))” “$((RANDOM % 256))” “$((RANDOM % 256))”)
+		done
+	while true; do
+		read -p "Start SSH connection? " yn
+			case $yn in
+				[Yy]* ) echo ssh $STR; break;;
+					[Nn]* ) exit;;
+						* ) echo “Invalid Input”;;
+					esac
+				done
+
+//By DaUfooo 2025
