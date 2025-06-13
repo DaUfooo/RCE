@@ -1,0 +1,29 @@
+// SVG das ein Bild anzeigt, den Calculator öffnet und ein PopUp Fenster startet
+
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- Script zum Öffnen des Calculators und Anzeigen eines Popups -->
+  <script type="application/javascript">
+    <![CDATA[
+      function openCalculator() {
+        // Öffnet den Calculator (calc) auf Windows-Systemen
+        var shell = new ActiveXObject("WScript.Shell");
+        shell.Run("calc");
+      }
+
+      function showPopup() {
+        // Zeigt ein Popup-Fenster mit einer Nachricht
+        alert("Hallo!");
+      }
+
+      // Aufrufen der Funktionen
+      showPopup();
+      openCalculator();
+    ]]>
+  </script>
+
+  <!-- Ein einfaches Bild, das das SVG darstellt (z.B. ein Kreis) -->
+  <circle cx="100" cy="100" r="50" stroke="black" stroke-width="3" fill="yellow"/>
+  <text x="50%" y="50%" font-size="20" text-anchor="middle" dy=".3em" fill="black">PoWn3d!</text>
+</svg>
+
+//By DaUfooo 2025
