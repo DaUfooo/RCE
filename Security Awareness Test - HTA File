@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>Security Awareness Test - By DaUfooo</title>
+  <HTA:APPLICATION ID="test"
+    APPLICATIONNAME="Test"
+    BORDER="thin"
+    CAPTION="yes"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal" />
+</head>
+<script language="VBScript">
+Sub window_onload()
+  result = MsgBox("In einem echten Angriff haette sich nicht nur die CMD, die PowerShell oder der Calc geoeffnet. Sondern eine Schadsoftware!", 48, "Security Awareness")
+  CreateObject("WScript.Shell").Run "cmd"
+  CreateObject("WScript.Shell").Run "powershell"
+  CreateObject("WScript.Shell").Run "calc"
+End Sub
+</script>
+<body>
+  <h2>Nicht GUT reagiert!</h2>
+  <h2>Ein echter Exploit wuerde hier nun Schaden angerichten.</h2>
+</body>
+</html>
