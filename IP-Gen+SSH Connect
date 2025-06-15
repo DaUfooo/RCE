@@ -1,4 +1,4 @@
-// #############IP-GENERATOR+SSH-CONNECT-TEST###################
+<!-- #############IP-GENERATOR+SSH-CONNECT-TEST################### --> 
 #!/bin/bash
 
 RANDOM=25
@@ -15,4 +15,4 @@ RANDOM=25
 					esac
 				done
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
