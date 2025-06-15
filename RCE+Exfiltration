@@ -1,4 +1,4 @@
-// Exfiltration von Daten als Teil des Exploits
+<!-- RCE + Exfiltration -->
 
 class Script {
   process_incoming_request({ request }) {
@@ -28,4 +28,4 @@ class Script {
 }
   }
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
