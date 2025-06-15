@@ -1,4 +1,6 @@
-// Schritt 1: Anfrage initialisieren
+<!-- PayLoad Splitting -->
+
+Schritt 1: Anfrage initialisieren
 class ScriptPart1 {
   process_incoming_request({ request }) {
     const payload = {
@@ -36,4 +38,4 @@ class ScriptPart2 {
 }
 
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
