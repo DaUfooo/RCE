@@ -1,4 +1,4 @@
-// Simple Pingtest
+<!-- Simple Ping TEST -->
 
 $IP = Read-Host "Gib eine IP oder URL ein:"
 while($true)
@@ -20,4 +20,4 @@ else
 		Start-Sleep -Seconds 5
 }
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
