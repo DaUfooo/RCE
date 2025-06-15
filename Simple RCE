@@ -1,4 +1,4 @@
-//Beispiel RCE
+<!-- Simple RCE -->
 
 class Script {
   process_incoming_request({ request }) {
@@ -17,4 +17,4 @@ class Script {
   }
 }
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
