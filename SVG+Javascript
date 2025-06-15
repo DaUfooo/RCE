@@ -1,82 +1,54 @@
-// SVG das ein Bild anzeigt, und APPS öffnet
-
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
-  <!-- Script zum Öffnen von PowerShell, CMD und Calculator -->
-  <script type="application/javascript">
-    <![CDATA[
-      function openPowerShell() {
-        // Öffnet PowerShell auf Windows-Systemen
-        var shell = new ActiveXObject("WScript.Shell");
-        shell.Run("powershell");
-      }
-
-      function openCmd() {
-        // Öffnet die CMD (Eingabeaufforderung) auf Windows-Systemen
-        var shell = new ActiveXObject("WScript.Shell");
-        shell.Run("cmd");
-      }
-
-      function openCalculator() {
-        // Öffnet den Calculator (calc) auf Windows-Systemen
-        var shell = new ActiveXObject("WScript.Shell");
-        shell.Run("calc");
-      }
-
-      function showPopup() {
-        // Zeigt ein Popup-Fenster mit einer Nachricht
-        alert("Hallo! Durch deinen Klick, hätte Schadcode ausgeführt werden können! - Klicke NIEMALS auf unbekannte Felder");
-      }
-
-      // Event-Listener für das Klick-Ereignis auf den Text
-      function handleClick() {
-        showPopup();
-        openPowerShell();
-        openCmd();
-        openCalculator();
-      }
-    ]]>
-  </script>
-
-  <!-- Ein UFO mit Schattenschatteneffekten -->
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">
   <defs>
-    <filter id="f1" x="0" y="0" width="150%" height="150%">
-      <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
-      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3" />
-      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    <!-- Filter für Schatteneffekt -->
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="black" />
     </filter>
 
-    <!-- Animation für den pulsierenden Text -->
+    <!-- Animierter Puls-Effekt -->
     <style>
       @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.1);
-        }
-        100% {
-          transform: scale(1);
-        }
+        0%   { transform: scale(1); fill: red; }
+        50%  { transform: scale(1.1); fill: orange; }
+        100% { transform: scale(1); fill: red; }
+      }
+
+      text.warning {
+        animation: pulse 1.5s infinite;
+        cursor: pointer;
       }
     </style>
   </defs>
 
-  <!-- UFO Unterseite (Ellipse) -->
-  <ellipse cx="150" cy="180" rx="100" ry="30" fill="gray" filter="url(#f1)" />
+  <!-- Ein einfaches UFO -->
+  <ellipse cx="200" cy="200" rx="100" ry="30" fill="gray" filter="url(#shadow)" />
+  <ellipse cx="200" cy="170" rx="80" ry="40" fill="silver" />
+  <circle cx="170" cy="200" r="5" fill="yellow" />
+  <circle cx="200" cy="200" r="5" fill="blue" />
+  <circle cx="230" cy="200" r="5" fill="red" />
 
-  <!-- UFO Oberseite (Ellipse) -->
-  <ellipse cx="150" cy="120" rx="80" ry="40" fill="silver" />
-
-  <!-- UFO Lichter (Kreise) -->
-  <circle cx="120" cy="180" r="6" fill="yellow" />
-  <circle cx="150" cy="180" r="6" fill="blue" />
-  <circle cx="180" cy="180" r="6" fill="red" />
-
-  <!-- Der Text mit kleinerer Schriftgröße -->
-  <text x="50%" y="50%" font-size="16" text-anchor="middle" dy=".3em" fill="red" font-family="Arial, sans-serif" font-weight="bold" stroke="black" stroke-width="1px" onclick="handleClick()" style="animation: pulse 1.5s infinite;">
-    Klicke NICHT! auf den Text
+  <!-- Interaktiver Warntext -->
+  <text id="mainText" x="200" y="100" text-anchor="middle"
+        font-size="16" font-family="Arial" font-weight="bold"
+        class="warning"
+        onclick="showMessage()">
+    🚫 Klicke NICHT auf diesen Text!
   </text>
+
+  <!-- Feedback-Text -->
+  <text id="feedback" x="200" y="130" text-anchor="middle"
+        font-size="14" fill="red" font-family="Courier New" />
+
+  <!-- Sichere JavaScript-Logik -->
+  <script type="application/ecmascript">
+    <![CDATA[
+      function showMessage() {
+        const msg = document.getElementById("feedback");
+        msg.textContent = "Ein echter Exploit hätte Schaden angerichtet.";
+      }
+    ]]>
+  </script>
+
 </svg>
 
-
-//By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
