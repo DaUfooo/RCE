@@ -1,7 +1,9 @@
+<!-- Security Awareness TEST - HTA + Command Injection -->
+
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>🚨 Security Awareness Test 🚨 - By DaUfooo</title>
+  <title>🚨 Security Awareness TEST 🚨 - By DaUfooo</title>
   <HTA:APPLICATION 
     ID="awareness"
     APPLICATIONNAME="SecurityDemo"
@@ -34,4 +36,4 @@ End Sub
 </body>
 </html>
 
-// By DaUfooo 2025
+<!-- By DaUfooo 2025 -->
